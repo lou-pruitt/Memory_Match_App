@@ -1,0 +1,22 @@
+.header {
+  text-align: center;
+
+  &__title {
+    background-color: red;
+    color: blue;
+    font-size: 1.5rem;
+    @mixin atSmall {
+      background-color: yellow;
+      font-size: 2rem;
+    }
+    @mixin atMedium {
+      background-color: green;
+    }
+    @mixin atLarge {
+      background-color: purple;
+    }
+    @mixin atExtraLarge {
+      background-color: steelblue;
+    }
+  }
+}
