@@ -2,3 +2,6 @@
 @import 'base/_global';
 @import 'base/_mixins';
 @import 'modules/_header';
+@import 'modules/_modal';
+@import 'modules/_game-title';
+@import 'modules/_wrapper';
