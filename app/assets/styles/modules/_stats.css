@@ -1,0 +1,26 @@
+.stats {
+  display: flex;
+  color: white;
+  background-color: dimgray;
+
+  &__title {
+    text-align: center;
+    margin: auto;
+    font-size: 1.2rem;
+  }
+  &__games-played {
+    border: 1px solid;
+    text-align: center;
+  }
+  &__accuracy {
+    text-align: center;
+    border: 1px solid;
+  }
+  &__attempts {
+    text-align: center;
+    border: 1px solid;
+  }
+  & p {
+    margin: 0;
+  }
+}
