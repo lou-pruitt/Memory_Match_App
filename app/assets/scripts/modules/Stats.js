@@ -4,7 +4,6 @@ class Stats {
   }
 
   injectStats() {
-    console.log('stats');
     var header = document.getElementById('header');
     header.insertAdjacentHTML(
       'afterend',
