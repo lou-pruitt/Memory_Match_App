@@ -1,3 +1,5 @@
+import GameArea from './GameArea';
+
 class Modal {
   constructor() {
     this.injectHtml();
@@ -46,6 +48,7 @@ class Modal {
     bgMusic.play();
     this.sound.play();
     this.modal.classList.remove('modal--is-visible');
+    new GameArea();
   }
 }
 
