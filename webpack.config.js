@@ -93,11 +93,7 @@ if (currentTask == 'build') {
   config.plugins.push(
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({ filename: 'styles.[chunkhash].css' }),
-    new RunAfterCompile(),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    })
+    new RunAfterCompile()
   );
 }
 
