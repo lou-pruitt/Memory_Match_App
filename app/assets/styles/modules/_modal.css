@@ -2,13 +2,13 @@
   opacity: 0;
   visibility: hidden;
   transform: scale(1.2);
-  transition: all 0.3s ease-out;
+  transition: all 1.8s ease-out;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(73, 133, 151, 0.94);
+  background-color: rgba(163, 183, 249, 0.94);
   z-index: 5;
   display: flex;
 
