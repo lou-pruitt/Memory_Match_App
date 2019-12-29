@@ -17,8 +17,26 @@ class GameArea {
 
   createCards() {
     this.cardImages = [
-      'https://www.mobygames.com/images/covers/l/34445-missile-command-atari-2600-front-cover.jpg'
+      'assets/images/hasslehoff.jpg',
+      'assets/images/contra.jpg',
+      'assets/images/donkey_kong.jpg',
+      'assets/images/dungeon_master.jpg',
+      'assets/images/mega_man_2.jpg',
+      'assets/images/metroid.jpg',
+      'assets/images/missile_command.jpg',
+      'assets/images/super_mario_bros_3.jpg',
+      'assets/images/tetris.jpg',
+      'assets/images/contra.jpg',
+      'assets/images/donkey_kong.jpg',
+      'assets/images/dungeon_master.jpg',
+      'assets/images/mega_man_2.jpg',
+      'assets/images/metroid.jpg',
+      'assets/images/missile_command.jpg',
+      'assets/images/super_mario_bros_3.jpg',
+      'assets/images/tetris.jpg'
     ];
+    this.cardIndex = this.cardImages.length - 1;
+
     for (let i = 0; i < 4; i++) {
       this.cardRow = document.createElement('div');
       this.cardRow.classList.add('game-area__row');
@@ -37,9 +55,9 @@ class GameArea {
         this.cardFrontImage.classList.add('game-area__card__inner__front__img');
         this.cardBack.classList.add('game-area__card__inner__back');
         this.cardBackImage.classList.add('game-area__card__inner__back__img');
-        this.cardFrontImage.src =
-          'https://vignette.wikia.nocookie.net/callofduty/images/d/d1/SpacelandDJ_Zombies_IW.png/revision/latest?cb=20160816202120';
-        this.cardBackImage.src = this.cardImages[0];
+        this.cardFrontImage.src = this.cardImages[0];
+        this.cardBackImage.src = this.cardImages[this.cardIndex];
+        this.cardIndex--;
         this.card.appendChild(this.cardInner);
         this.cardInner.appendChild(this.cardFront);
         this.cardInner.appendChild(this.cardBack);

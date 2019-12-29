@@ -22,9 +22,6 @@ class Modal {
       </h2>
       <div class="wrapper wrapper--narrow">
         <button class="modal__start-btn">Start</button>
-        <audio id="start-sound" 
-          preload="auto"  >
-        </audio>
       </div>
     </div>
   </div>
@@ -33,9 +30,6 @@ class Modal {
   }
 
   events() {
-    this.sound = document.getElementById('start-sound');
-    this.sound.src =
-      'http://soundbible.com/mp3/Metroid_Door-Brandino480-995195341.mp3';
     this.startBtn.addEventListener('click', () => this.closeTheModal());
   }
 
@@ -44,9 +38,10 @@ class Modal {
   }
 
   closeTheModal() {
+    var startSound = document.getElementById('start-sound');
+    startSound.play();
     var bgMusic = document.getElementById('background_music');
     bgMusic.play();
-    this.sound.play();
     this.modal.classList.remove('modal--is-visible');
     new GameArea();
   }

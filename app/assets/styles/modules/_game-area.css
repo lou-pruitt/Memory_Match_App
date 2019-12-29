@@ -7,7 +7,7 @@
     perspective: 1000px;
     width: 92px;
     height: 105.84px;
-    margin: 30px 0;
+    margin: 15px 0;
 
     &:hover &__inner {
       transform: rotateY(180deg);
@@ -29,7 +29,7 @@
         backface-visibility: hidden;
 
         &__img {
-          width: 92px;
+          width: 85px;
           height: auto;
           border-radius: 5px;
         }
@@ -43,8 +43,8 @@
         transform: rotateY(180deg);
 
         &__img {
-          width: 92px;
-          height: 105.84px;
+          width: 85px;
+          max-height: 113px;
           border-radius: 5px;
         }
       }
