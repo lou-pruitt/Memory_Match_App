@@ -38,12 +38,12 @@ class Modal {
   }
 
   openTheModal() {
-    var bgMusic = document.getElementById('background_music');
-    bgMusic.play();
     this.modal.classList.add('modal--is-visible');
   }
 
   closeTheModal() {
+    var bgMusic = document.getElementById('background_music');
+    bgMusic.play();
     this.sound.play();
     this.modal.classList.remove('modal--is-visible');
   }
