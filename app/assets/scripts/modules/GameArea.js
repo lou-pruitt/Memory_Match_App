@@ -26,7 +26,6 @@ class GameArea {
       'assets/images/missile_command.jpg',
       'assets/images/super_mario_bros_3.jpg',
       'assets/images/tetris.jpg',
-      'assets/images/zelda.jpg',
       'assets/images/contra.jpg',
       'assets/images/donkey_kong.jpg',
       'assets/images/dungeon_master.jpg',
@@ -34,8 +33,7 @@ class GameArea {
       'assets/images/metroid.jpg',
       'assets/images/missile_command.jpg',
       'assets/images/super_mario_bros_3.jpg',
-      'assets/images/tetris.jpg',
-      'assets/images/zelda.jpg'
+      'assets/images/tetris.jpg'
     ];
     this.cardIndex = this.cardImages.length - 1;
 
