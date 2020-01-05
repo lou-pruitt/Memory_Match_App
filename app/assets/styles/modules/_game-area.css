@@ -9,10 +9,6 @@
     height: 105.84px;
     margin: 15px 0;
 
-    &:hover &__inner {
-      transform: rotateY(180deg);
-    }
-
     &__inner {
       position: relative;
       width: 100%;
@@ -21,6 +17,10 @@
       transition: transform 0.8s;
       transform-style: preserve-3d;
       transform: rotateY(0deg);
+
+      &--flip-card {
+        transform: rotateY(180deg);
+      }
 
       &__front {
         position: absolute;
@@ -41,6 +41,10 @@
         height: 100%;
         backface-visibility: hidden;
         transform: rotateY(180deg);
+
+        &--flip-card {
+          transform: rotateY(180deg);
+        }
 
         &__img {
           width: 85px;
