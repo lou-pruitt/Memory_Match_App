@@ -30,7 +30,8 @@ class Modal {
   }
 
   events() {
-    this.startBtn.addEventListener('click', () => this.closeTheModal());
+    this.startBtnHandler = this.closeTheModal.bind(this);
+    this.startBtn.addEventListener('click', this.startBtnHandler, false);
   }
 
   openTheModal() {
@@ -44,6 +45,7 @@ class Modal {
     bgMusic.play();
     this.modal.classList.remove('modal--is-visible');
     new GameArea();
+    this.startBtn.removeEventListener('click', this.startBtnHandler, false);
   }
 }
 
