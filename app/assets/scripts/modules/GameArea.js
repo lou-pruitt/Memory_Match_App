@@ -13,6 +13,7 @@ class GameArea {
     let secondCard = '';
     let count = 0;
     let matchedCards = [];
+    let flippedCards = [];
     let delay = 2000;
 
     const cardsClicked = document.querySelectorAll('.game-area__card');
@@ -29,11 +30,13 @@ class GameArea {
           count++;
           if (count === 1) {
             firstCard = clickedImage;
+            flippedCards.push(firstCard);
             clicked.parentElement.parentElement.classList.add(
               'game-area__card__inner--flip-card'
             );
           } else {
             secondCard = clickedImage;
+            flippedCards.push(secondCard);
             clicked.parentElement.parentElement.classList.add(
               'game-area__card__inner--flip-card'
             );
@@ -44,8 +47,8 @@ class GameArea {
               match();
               resetGuesses();
             } else {
-              setTimeout(resetGuesses, delay);
               setTimeout(unFlip, delay);
+              setTimeout(resetGuesses, delay);
             }
           }
         }
@@ -57,17 +60,27 @@ class GameArea {
     };
 
     const unFlip = () => {
-      var flipped = document.querySelectorAll('.game-area__card__inner');
+      var flipped = document.querySelectorAll(
+        '.game-area__card__inner--flip-card'
+      );
       flipped.forEach(card => {
         if (matchedCards.length > 0) {
-          var stayflipped = card.childNodes[1].children[0].src;
-          console.log('matchedCards: ', matchedCards);
-          if (stayflipped !== matchedCards[0]) {
-            // Find out how to iterate through matchedCards and find cards that don't match to unflip================================
+          function findCard(cardSrc) {
+            return (cardSrc = card.children[1].children[0].src);
+          }
+          var cardFound = matchedCards.find(findCard);
+          var cardSrc = card.children[1].children[0].src;
+          if (
+            cardFound === cardSrc ||
+            flippedCards[0] === flippedCards[1] ||
+            matchedCards.includes(cardSrc)
+          ) {
+            var match = new Audio('appassetsimagessoundsmatch.mp3');
+            return;
+          } else if (flippedCards[0] !== flippedCards[1]) {
             card.classList.remove('game-area__card__inner--flip-card');
           }
-        } else {
-          console.log('no items in matchedCards');
+        } else if (matchedCards.length === 0) {
           card.classList.remove('game-area__card__inner--flip-card');
         }
       });
@@ -77,6 +90,7 @@ class GameArea {
       firstCard = '';
       secondCard = '';
       count = 0;
+      flippedCards = [];
     };
   }
 
