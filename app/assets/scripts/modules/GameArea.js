@@ -44,9 +44,27 @@ class GameArea {
 
           if (firstCard !== '' && secondCard !== '') {
             if (firstCard === secondCard) {
+              let playPromise = new Audio('assets/images/sounds/match.mp3');
+              playPromise
+                .play()
+                .then(() => {
+                  console.log('Playing');
+                })
+                .catch(e => {
+                  console.log('Error Occured', e.message);
+                });
               match();
               resetGuesses();
             } else {
+              let playPromise = new Audio('assets/images/sounds/no_match.mp3');
+              playPromise
+                .play()
+                .then(() => {
+                  console.log('Playing');
+                })
+                .catch(e => {
+                  console.log('Error Occured', e.message);
+                });
               setTimeout(unFlip, delay);
               setTimeout(resetGuesses, delay);
             }
@@ -75,7 +93,6 @@ class GameArea {
             flippedCards[0] === flippedCards[1] ||
             matchedCards.includes(cardSrc)
           ) {
-            var match = new Audio('appassetsimagessoundsmatch.mp3');
             return;
           } else if (flippedCards[0] !== flippedCards[1]) {
             card.classList.remove('game-area__card__inner--flip-card');
