@@ -75,6 +75,37 @@ class GameArea {
 
     const match = () => {
       matchedCards.push(firstCard, secondCard);
+      if (matchedCards.length === 16) {
+        let playPromise = new Audio('assets/images/sounds/soft_win.mp3');
+        playPromise
+          .play()
+          .then(() => {
+            console.log('Playing');
+          })
+          .catch(e => {
+            console.log('Error Occured', e.message);
+          });
+      } else if (matchedCards.length === 12) {
+        let playPromise = new Audio('assets/images/sounds/almost_there.mp3');
+        playPromise
+          .play()
+          .then(() => {
+            console.log('Playing');
+          })
+          .catch(e => {
+            console.log('Error Occured', e.message);
+          });
+      } else if (matchedCards.length === 8) {
+        let playPromise = new Audio('assets/images/sounds/amazing.mp3');
+        playPromise
+          .play()
+          .then(() => {
+            console.log('Playing');
+          })
+          .catch(e => {
+            console.log('Error Occured', e.message);
+          });
+      }
     };
 
     const unFlip = () => {
