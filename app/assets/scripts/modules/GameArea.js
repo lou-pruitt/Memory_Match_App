@@ -5,141 +5,117 @@ class GameArea {
     this.cardBackFlip = document.querySelectorAll(
       '.game-area__card__inner__back'
     );
+    this.firstCard = '';
+    this.secondCard = '';
+    this.matchedCards = [];
+    this.flippedCards = [];
+    this.count = 0;
+    this.delay = 1000;
+    this.playMatch = new Audio('assets/images/sounds/match.mp3');
+    this.playNoMatch = new Audio('assets/images/sounds/no_match.mp3');
+
     this.events();
   }
 
   events() {
-    let firstCard = '';
-    let secondCard = '';
-    let count = 0;
-    let matchedCards = [];
-    let flippedCards = [];
-    let delay = 2000;
-
-    const cardsClicked = document.querySelectorAll('.game-area__card');
-    for (const cardClicked of cardsClicked) {
-      cardClicked.addEventListener('click', function(e) {
-        let clicked = e.target;
-        let clickedImage =
-          e.target.parentNode.nextElementSibling.childNodes[0].src;
-        if (clicked.nodeName === 'GAME') {
-          return;
-        }
-
-        if (count < 2) {
-          count++;
-          if (count === 1) {
-            firstCard = clickedImage;
-            flippedCards.push(firstCard);
-            clicked.parentElement.parentElement.classList.add(
-              'game-area__card__inner--flip-card'
-            );
-          } else {
-            secondCard = clickedImage;
-            flippedCards.push(secondCard);
-            clicked.parentElement.parentElement.classList.add(
-              'game-area__card__inner--flip-card'
-            );
-          }
-
-          if (firstCard !== '' && secondCard !== '') {
-            if (firstCard === secondCard) {
-              let playPromise = new Audio('assets/images/sounds/match.mp3');
-              playPromise
-                .play()
-                .then(() => {
-                  console.log('Playing');
-                })
-                .catch(e => {
-                  console.log('Error Occured', e.message);
-                });
-              match();
-              resetGuesses();
-            } else {
-              let playPromise = new Audio('assets/images/sounds/no_match.mp3');
-              playPromise
-                .play()
-                .then(() => {
-                  console.log('Playing');
-                })
-                .catch(e => {
-                  console.log('Error Occured', e.message);
-                });
-              setTimeout(unFlip, delay);
-              setTimeout(resetGuesses, delay);
-            }
-          }
-        }
+    document.querySelectorAll('.game-area__card').forEach(card => {
+      card.addEventListener('click', e => {
+        let clickedCard = e.target;
+        let cardImage =
+          clickedCard.parentNode.nextElementSibling.childNodes[0].src;
+        this.flipCard(clickedCard, cardImage);
       });
-    }
+    });
+  }
 
-    const match = () => {
-      matchedCards.push(firstCard, secondCard);
-      if (matchedCards.length === 16) {
-        let playPromise = new Audio('assets/images/sounds/soft_win.mp3');
-        playPromise
-          .play()
-          .then(() => {
-            console.log('Playing');
-          })
-          .catch(e => {
-            console.log('Error Occured', e.message);
-          });
-      } else if (matchedCards.length === 12) {
-        let playPromise = new Audio('assets/images/sounds/almost_there.mp3');
-        playPromise
-          .play()
-          .then(() => {
-            console.log('Playing');
-          })
-          .catch(e => {
-            console.log('Error Occured', e.message);
-          });
-      } else if (matchedCards.length === 8) {
-        let playPromise = new Audio('assets/images/sounds/amazing.mp3');
-        playPromise
-          .play()
-          .then(() => {
-            console.log('Playing');
-          })
-          .catch(e => {
-            console.log('Error Occured', e.message);
-          });
+  flipCard(clickedCard, cardImage) {
+    if (this.count < 2) {
+      this.count++;
+      if (this.count === 1) {
+        this.firstCard = cardImage;
+        this.flippedCards.push(this.firstCard);
+        clickedCard.parentElement.parentElement.classList.add(
+          'game-area__card__inner--flip-card'
+        );
+      } else {
+        this.secondCard = cardImage;
+        this.flippedCards.push(this.secondCard);
+        clickedCard.parentElement.parentElement.classList.add(
+          'game-area__card__inner--flip-card'
+        );
       }
-    };
+    }
+    this.checkMatch();
+  }
 
-    const unFlip = () => {
-      var flipped = document.querySelectorAll(
-        '.game-area__card__inner--flip-card'
-      );
-      flipped.forEach(card => {
-        if (matchedCards.length > 0) {
-          function findCard(cardSrc) {
-            return (cardSrc = card.children[1].children[0].src);
-          }
-          var cardFound = matchedCards.find(findCard);
-          var cardSrc = card.children[1].children[0].src;
-          if (
-            cardFound === cardSrc ||
-            flippedCards[0] === flippedCards[1] ||
-            matchedCards.includes(cardSrc)
-          ) {
+  checkMatch() {
+    if (this.firstCard !== '' && this.secondCard !== '') {
+      if (this.firstCard === this.secondCard) {
+        this.match();
+      } else {
+        this.noMatch();
+      }
+    }
+  }
+
+  match() {
+    this.matchedCards.push(this.firstCard, this.secondCard);
+    this.playMatch
+      .play()
+      .then(() => {
+        console.log('audio: match');
+      })
+      .catch(e => {
+        console.log('audio error: match', e.message);
+      });
+    this.resetGuesses();
+  }
+
+  noMatch() {
+    this.playNoMatch
+      .play()
+      .then(() => {
+        console.log('audio: no match');
+      })
+      .catch(e => {
+        console.log('audio error: no match', e.message);
+      });
+    setTimeout(() => {
+      this.resetFlippedCards();
+    }, this.delay);
+    setTimeout(() => {
+      this.resetGuesses();
+    }, this.delay);
+  }
+
+  resetGuesses() {
+    this.firstCard = '';
+    this.secondCard = '';
+    this.count = 0;
+    this.flippedCards = [];
+  }
+
+  resetFlippedCards() {
+    document
+      .querySelectorAll('.game-area__card__inner--flip-card')
+      .forEach(card => {
+        if (this.matchedCards.length > 0) {
+          let currentCard = card.children[1].children[0].src;
+          let previousCard = this.matchedCards.find(this.findCard);
+
+          if (this.matchedCards.includes(currentCard)) {
             return;
-          } else if (flippedCards[0] !== flippedCards[1]) {
+          } else if (this.flippedCards[0] !== this.flippedCards[1]) {
             card.classList.remove('game-area__card__inner--flip-card');
           }
-        } else if (matchedCards.length === 0) {
+        } else if (this.matchedCards.length === 0) {
           card.classList.remove('game-area__card__inner--flip-card');
         }
       });
-    };
+  }
 
-    const resetGuesses = () => {
-      firstCard = '';
-      secondCard = '';
-      count = 0;
-      flippedCards = [];
-    };
+  findCard(card) {
+    return card;
   }
 
   createGameArea() {
