@@ -14,6 +14,13 @@ class GameArea {
     this.playMatch = new Audio('assets/images/sounds/match.mp3');
     this.playNoMatch = new Audio('assets/images/sounds/no_match.mp3');
 
+    this.matchCounter = 0;
+    this.matches = 0;
+    this.attempts = 0;
+    this.accuracy = 0;
+    this.totalPossibleMatches = 8;
+    this.gamesPlayed = 0;
+
     this.events();
   }
 
@@ -43,6 +50,7 @@ class GameArea {
         clickedCard.parentElement.parentElement.classList.add(
           'game-area__card__inner--flip-card'
         );
+        this.attempts++;
       }
     }
     this.checkMatch();
@@ -59,7 +67,9 @@ class GameArea {
   }
 
   match() {
-    this.matchedCards.push(this.firstCard, this.secondCard);
+    this.matchCounter++;
+    this.matches++;
+    this.playMatch = new Audio('assets/images/sounds/match.mp3');
     this.playMatch
       .play()
       .then(() => {
@@ -68,6 +78,39 @@ class GameArea {
       .catch(e => {
         console.log('audio error: match', e.message);
       });
+    if (this.matchCounter === this.totalPossibleMatches) {
+      this.playSoftWin = new Audio('assets/images/sounds/soft_win.mp3');
+      this.playSoftWin
+        .play()
+        .then(() => {
+          console.log('audio: soft_win');
+        })
+        .catch(e => {
+          console.log('audio error: soft_win', e.message);
+        });
+    } else if (this.matchCounter === 6) {
+      this.playAlmost = new Audio('assets/images/sounds/almost_there.mp3');
+      this.playAlmost
+        .play()
+        .then(() => {
+          console.log('audio: almost_there');
+        })
+        .catch(e => {
+          console.log('audio error: almost_there', e.message);
+        });
+    } else if (this.matchCounter === 3) {
+      this.playAmazing = new Audio('assets/images/sounds/amazing.mp3');
+      this.playAmazing
+        .play()
+        .then(() => {
+          console.log('audio: amazing');
+        })
+        .catch(e => {
+          console.log('audio error: amazing', e.message);
+        });
+    }
+    this.matchedCards.push(this.firstCard, this.secondCard);
+
     this.resetGuesses();
   }
 
@@ -88,11 +131,20 @@ class GameArea {
     }, this.delay);
   }
 
+  updateStats() {
+    this.accuracy = (this.matches / this.attempts) * 100;
+    this.accuracyElement = document.getElementById('accuracy');
+    this.attemptsElement = document.getElementById('attempts');
+    this.accuracyElement.innerHTML = this.accuracy.toPrecision(4) + '%';
+    this.attemptsElement.innerHTML = this.attempts;
+  }
+
   resetGuesses() {
     this.firstCard = '';
     this.secondCard = '';
     this.count = 0;
     this.flippedCards = [];
+    this.updateStats();
   }
 
   resetFlippedCards() {
@@ -192,36 +244,34 @@ class GameArea {
         alt: 'Tetris'
       }
     ];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 16; i++) {
       this.cardRow = document.createElement('div');
       this.cardRow.classList.add('game-area__row');
       this.gameArea.appendChild(this.cardRow);
 
-      for (let index = 0; index < 4; index++) {
-        this.card = document.createElement('div');
-        this.cardInner = document.createElement('div');
-        this.cardFront = document.createElement('div');
-        this.cardFrontImage = document.createElement('img');
-        this.cardBack = document.createElement('div');
-        this.cardBackImage = document.createElement('img');
-        this.card.classList.add('game-area__card');
-        this.cardInner.classList.add('game-area__card__inner');
-        this.cardFront.classList.add('game-area__card__inner__front');
-        this.cardFrontImage.classList.add('game-area__card__inner__front__img');
-        this.cardBack.classList.add('game-area__card__inner__back');
-        this.cardBackImage.classList.add('game-area__card__inner__back__img');
-        this.cardFrontImage.src = 'assets/images/hasslehoff.jpg';
-        this.cardFrontImage.setAttribute('alt', 'David Hasslehoff');
-        this.randomBackImage();
-        this.cardBackImage.src = this.backImageSrc;
-        this.cardBackImage.setAttribute('alt', this.backImageAlt);
-        this.card.appendChild(this.cardInner);
-        this.cardInner.appendChild(this.cardFront);
-        this.cardInner.appendChild(this.cardBack);
-        this.cardBack.appendChild(this.cardBackImage);
-        this.cardFront.appendChild(this.cardFrontImage);
-        this.cardRow.appendChild(this.card);
-      }
+      this.card = document.createElement('div');
+      this.cardInner = document.createElement('div');
+      this.cardFront = document.createElement('div');
+      this.cardFrontImage = document.createElement('img');
+      this.cardBack = document.createElement('div');
+      this.cardBackImage = document.createElement('img');
+      this.card.classList.add('game-area__card');
+      this.cardInner.classList.add('game-area__card__inner');
+      this.cardFront.classList.add('game-area__card__inner__front');
+      this.cardFrontImage.classList.add('game-area__card__inner__front__img');
+      this.cardBack.classList.add('game-area__card__inner__back');
+      this.cardBackImage.classList.add('game-area__card__inner__back__img');
+      this.cardFrontImage.src = 'assets/images/hasslehoff.jpg';
+      this.cardFrontImage.setAttribute('alt', 'David Hasslehoff');
+      this.randomBackImage();
+      this.cardBackImage.src = this.backImageSrc;
+      this.cardBackImage.setAttribute('alt', this.backImageAlt);
+      this.card.appendChild(this.cardInner);
+      this.cardInner.appendChild(this.cardFront);
+      this.cardInner.appendChild(this.cardBack);
+      this.cardBack.appendChild(this.cardBackImage);
+      this.cardFront.appendChild(this.cardFrontImage);
+      this.cardRow.appendChild(this.card);
     }
   }
 
