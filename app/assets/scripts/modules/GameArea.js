@@ -1,3 +1,4 @@
+import WinModal from './WinModal';
 class GameArea {
   constructor() {
     this.createGameArea();
@@ -11,15 +12,15 @@ class GameArea {
     this.flippedCards = [];
     this.count = 0;
     this.delay = 1000;
-    this.playMatch = new Audio('assets/images/sounds/match.mp3');
-    this.playNoMatch = new Audio('assets/images/sounds/no_match.mp3');
-
     this.matchCounter = 0;
     this.matches = 0;
     this.attempts = 0;
     this.accuracy = 0;
     this.totalPossibleMatches = 8;
     this.gamesPlayed = 0;
+
+    this.playMatch = new Audio('assets/images/sounds/match.mp3');
+    this.playNoMatch = new Audio('assets/images/sounds/no_match.mp3');
 
     this.events();
   }
@@ -69,6 +70,7 @@ class GameArea {
   match() {
     this.matchCounter++;
     this.matches++;
+    this.gamesPlayed++;
     this.playMatch = new Audio('assets/images/sounds/match.mp3');
     this.playMatch
       .play()
@@ -79,6 +81,9 @@ class GameArea {
         console.log('audio error: match', e.message);
       });
     if (this.matchCounter === this.totalPossibleMatches) {
+      this.bgMusic = document.getElementById('background_music');
+      this.bgMusic.pause();
+      this.bgMusic.currentTime = 0;
       this.playSoftWin = new Audio('assets/images/sounds/soft_win.mp3');
       this.playSoftWin
         .play()
@@ -88,6 +93,7 @@ class GameArea {
         .catch(e => {
           console.log('audio error: soft_win', e.message);
         });
+      new WinModal();
     } else if (this.matchCounter === 6) {
       this.playAlmost = new Audio('assets/images/sounds/almost_there.mp3');
       this.playAlmost
@@ -133,10 +139,12 @@ class GameArea {
 
   updateStats() {
     this.accuracy = (this.matches / this.attempts) * 100;
+    this.gamesPlayedElement = document.getElementById('games-played');
     this.accuracyElement = document.getElementById('accuracy');
     this.attemptsElement = document.getElementById('attempts');
     this.accuracyElement.innerHTML = this.accuracy.toPrecision(4) + '%';
     this.attemptsElement.innerHTML = this.attempts;
+    this.gamesPlayedElement.innerHTML = this.gamesPlayed;
   }
 
   resetGuesses() {
