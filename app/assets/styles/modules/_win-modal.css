@@ -1,0 +1,37 @@
+.win-modal {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.2);
+  transition: all 1.8s ease-out;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(163, 183, 249, 0.94);
+  z-index: 5;
+  display: flex;
+
+  &--is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  &__inner {
+    flex: 1;
+    margin: auto;
+  }
+
+  &__play-again-btn {
+    border-radius: 16px;
+    background-color: white;
+    text-decoration: none;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    &:hover {
+      background-color: #008cba;
+    }
+  }
+}
