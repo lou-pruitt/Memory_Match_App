@@ -70,7 +70,7 @@ class GameArea {
   match() {
     this.matchCounter++;
     this.matches++;
-    this.gamesPlayed++;
+
     this.playMatch = new Audio('assets/images/sounds/match.mp3');
     this.playMatch
       .play()
@@ -81,6 +81,7 @@ class GameArea {
         console.log('audio error: match', e.message);
       });
     if (this.matchCounter === this.totalPossibleMatches) {
+      this.gamesPlayed++;
       this.bgMusic = document.getElementById('background_music');
       this.bgMusic.pause();
       this.bgMusic.currentTime = 0;
@@ -93,7 +94,12 @@ class GameArea {
         .catch(e => {
           console.log('audio error: soft_win', e.message);
         });
-      new WinModal();
+      let winModal = new WinModal(
+        this.accuracy,
+        this.attempts,
+        this.gamesPlayed
+      );
+      this.winReset();
     } else if (this.matchCounter === 6) {
       this.playAlmost = new Audio('assets/images/sounds/almost_there.mp3');
       this.playAlmost
@@ -120,6 +126,18 @@ class GameArea {
     this.resetGuesses();
   }
 
+  winReset() {
+    this.matchedCards = [];
+    this.matchCounter = 0;
+    this.matches = 0;
+    this.accuracy = 0;
+    this.attempts = 0;
+    document.getElementById('game-area').remove();
+    this.createGameArea();
+    this.events();
+    this.updateStats();
+  }
+
   noMatch() {
     this.playNoMatch
       .play()
@@ -138,7 +156,9 @@ class GameArea {
   }
 
   updateStats() {
-    this.accuracy = (this.matches / this.attempts) * 100;
+    if (this.matches !== 0 && this.attempts !== 0) {
+      this.accuracy = (this.matches / this.attempts) * 100;
+    }
     this.gamesPlayedElement = document.getElementById('games-played');
     this.accuracyElement = document.getElementById('accuracy');
     this.attemptsElement = document.getElementById('attempts');
@@ -181,6 +201,7 @@ class GameArea {
   createGameArea() {
     this.gameArea = document.createElement('game');
     this.gameArea.classList.add('game-area');
+    this.gameArea.setAttribute('id', 'game-area');
     document.body.appendChild(this.gameArea);
     this.createCards();
   }
@@ -256,7 +277,6 @@ class GameArea {
       this.cardRow = document.createElement('div');
       this.cardRow.classList.add('game-area__row');
       this.gameArea.appendChild(this.cardRow);
-
       this.card = document.createElement('div');
       this.cardInner = document.createElement('div');
       this.cardFront = document.createElement('div');

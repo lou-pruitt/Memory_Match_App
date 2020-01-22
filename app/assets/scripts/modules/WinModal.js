@@ -1,7 +1,10 @@
 import GameArea from './GameArea';
 
 class WinModal {
-  constructor() {
+  constructor(accuracy, attempts, gamesPlayed) {
+    this.accuracy = accuracy;
+    this.attempts = attempts;
+    this.gameNumber = gamesPlayed;
     this.injectHtml();
     this.winModal = document.querySelector('.win-modal');
     this.playAgainBtn = document.querySelector('.win-modal__play-again-btn');
@@ -9,15 +12,19 @@ class WinModal {
   }
 
   injectHtml() {
+    debugger;
+    if (this.gameNumber > 1) {
+      return;
+    }
     document.body.insertAdjacentHTML(
-      'beforeend',
+      'beforebegin',
       `
       <div class="win-modal">
         <div class="win-modal__inner">
           <h2
             class="win-message win-message--less-margin"
           >
-            You Win!
+            Stats
           </h2>
           <div id="win-stats" class="win-stats"></div>
           <div class="wrapper wrapper--narrow">
@@ -51,18 +58,17 @@ class WinModal {
       'beforeend',
       `
       <div class="stats">
-        <h1 class="stats__title">Stats:</h1>
         <div class="stats__games-played">
-          <p class="stats__games-played__title">Games played:</p>
-          <div id="games-played" class="value">0</div>
+          <p class="stats__games-played__title">Game</p>
+          <div id="win-game-number${this.gameNumber}" class="value">0</div>
         </div>
         <div class="stats__accuracy">
-          <p class="stats__accuracy__title">Accuracy:</p>
-          <div id="accuracy" class="value">0</div>
+          <p class="stats__accuracy__title">Accuracy</p>
+          <div id="win-accuracy${this.gameNumber}" class="value">0</div>
         </div>
         <div class="stats__attempts">
-          <p class="stats__attempts__title">Attempts:</p>
-          <div id="attempts" class="value">0</div>
+          <p class="stats__attempts__title">Attempts</p>
+          <div id="win-attempts${this.gameNumber}" class="value">0</div>
         </div>
       </div>
     `
@@ -70,9 +76,14 @@ class WinModal {
   }
 
   updateStats() {
-    document.getElementById('accuracy').innerHTML = GameArea.accuracy;
-    document.getElementById('attempts').innerHTML = GameArea.attempts;
-    document.getElementById('games-played').innerHTML = GameArea.gamesPlayed;
+    document.getElementById('win-accuracy' + this.gameNumber).innerHTML =
+      this.accuracy + '%';
+    document.getElementById(
+      'win-attempts' + this.gameNumber
+    ).innerHTML = this.attempts;
+    document.getElementById(
+      'win-game-number' + this.gameNumber
+    ).innerHTML = this.gameNumber;
   }
 
   closeWinModal() {

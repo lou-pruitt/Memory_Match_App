@@ -21,6 +21,11 @@
   &__inner {
     flex: 1;
     margin: auto;
+    text-align: center;
+
+    & .stats {
+      justify-content: space-around;
+    }
   }
 
   &__play-again-btn {
