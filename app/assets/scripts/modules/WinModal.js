@@ -2,7 +2,7 @@ import GameArea from './GameArea';
 
 class WinModal {
   constructor(accuracy, attempts, gamesPlayed) {
-    this.accuracy = accuracy;
+    this.accuracy = accuracy.toPrecision(3);
     this.attempts = attempts;
     this.gameNumber = gamesPlayed;
     this.injectHtml();
