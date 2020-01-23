@@ -99,7 +99,9 @@ class GameArea {
         this.attempts,
         this.gamesPlayed
       );
+      this.resetGuesses();
       this.winReset();
+      return;
     } else if (this.matchCounter === 6) {
       this.playAlmost = new Audio('assets/images/sounds/almost_there.mp3');
       this.playAlmost
