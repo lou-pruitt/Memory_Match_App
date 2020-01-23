@@ -16,7 +16,7 @@ class Stats {
         </div>
         <div class="stats__accuracy">
           <p class="stats__accuracy__title">Accuracy:</p>
-          <div id="accuracy" class="value">0</div>
+          <div id="accuracy" class="value">100%</div>
         </div>
         <div class="stats__attempts">
           <p class="stats__attempts__title">Attempts:</p>
