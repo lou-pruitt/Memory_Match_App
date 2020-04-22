@@ -26,8 +26,8 @@ class GameArea {
   }
 
   events() {
-    document.querySelectorAll('.game-area__card').forEach(card => {
-      card.addEventListener('click', e => {
+    document.querySelectorAll('.game-area__card').forEach((card) => {
+      card.addEventListener('click', (e) => {
         let clickedCard = e.target;
         let cardImage =
           clickedCard.parentNode.nextElementSibling.childNodes[0].src;
@@ -77,7 +77,7 @@ class GameArea {
       .then(() => {
         console.log('audio: match');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('audio error: match', e.message);
       });
     if (this.matchCounter === this.totalPossibleMatches) {
@@ -91,7 +91,7 @@ class GameArea {
         .then(() => {
           console.log('audio: soft_win');
         })
-        .catch(e => {
+        .catch((e) => {
           console.log('audio error: soft_win', e.message);
         });
       let winModal = new WinModal(
@@ -109,7 +109,7 @@ class GameArea {
         .then(() => {
           console.log('audio: almost_there');
         })
-        .catch(e => {
+        .catch((e) => {
           console.log('audio error: almost_there', e.message);
         });
     } else if (this.matchCounter === 3) {
@@ -119,7 +119,7 @@ class GameArea {
         .then(() => {
           console.log('audio: amazing');
         })
-        .catch(e => {
+        .catch((e) => {
           console.log('audio error: amazing', e.message);
         });
     }
@@ -146,7 +146,7 @@ class GameArea {
       .then(() => {
         console.log('audio: no match');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('audio error: no match', e.message);
       });
     setTimeout(() => {
@@ -164,7 +164,7 @@ class GameArea {
     this.gamesPlayedElement = document.getElementById('games-played');
     this.accuracyElement = document.getElementById('accuracy');
     this.attemptsElement = document.getElementById('attempts');
-    this.accuracyElement.innerHTML = this.accuracy.toPrecision(4) + '%';
+    this.accuracyElement.innerHTML = this.accuracy.toPrecision(3) + '%';
     this.attemptsElement.innerHTML = this.attempts;
     this.gamesPlayedElement.innerHTML = this.gamesPlayed;
   }
@@ -180,7 +180,7 @@ class GameArea {
   resetFlippedCards() {
     document
       .querySelectorAll('.game-area__card__inner--flip-card')
-      .forEach(card => {
+      .forEach((card) => {
         if (this.matchedCards.length > 0) {
           let currentCard = card.children[1].children[0].src;
           let previousCard = this.matchedCards.find(this.findCard);
@@ -212,73 +212,74 @@ class GameArea {
     this.cardImages = [
       {
         src: 'assets/images/contra.jpg',
-        alt: 'Contra'
+        alt: 'Contra',
       },
       {
         src: 'assets/images/donkey_kong.jpg',
-        alt: 'Donkey Kong'
+        alt: 'Donkey Kong',
       },
       {
         src: 'assets/images/dungeon_master.jpg',
-        alt: 'Dungeon Master'
+        alt: 'Dungeon Master',
       },
       {
         src: 'assets/images/mega_man_2.jpg',
-        alt: 'Mega Man'
+        alt: 'Mega Man',
       },
       {
         src: 'assets/images/metroid.jpg',
-        alt: 'Metroid'
+        alt: 'Metroid',
       },
       {
         src: 'assets/images/missile_command.jpg',
-        alt: 'Missile Command'
+        alt: 'Missile Command',
       },
       {
         src: 'assets/images/super_mario_bros_3.jpg',
-        alt: "Super Mario Bros' 3"
+        alt: "Super Mario Bros' 3",
       },
       {
         src: 'assets/images/tetris.jpg',
-        alt: 'Tetris'
+        alt: 'Tetris',
       },
       {
         src: 'assets/images/contra.jpg',
-        alt: 'Contra'
+        alt: 'Contra',
       },
       {
         src: 'assets/images/donkey_kong.jpg',
-        alt: 'Donkey Kong'
+        alt: 'Donkey Kong',
       },
       {
         src: 'assets/images/dungeon_master.jpg',
-        alt: 'Dungeon Master'
+        alt: 'Dungeon Master',
       },
       {
         src: 'assets/images/mega_man_2.jpg',
-        alt: 'Mega Man'
+        alt: 'Mega Man',
       },
       {
         src: 'assets/images/metroid.jpg',
-        alt: 'Metroid'
+        alt: 'Metroid',
       },
       {
         src: 'assets/images/missile_command.jpg',
-        alt: 'Missile Command'
+        alt: 'Missile Command',
       },
       {
         src: 'assets/images/super_mario_bros_3.jpg',
-        alt: "Super Mario Bros' 3"
+        alt: "Super Mario Bros' 3",
       },
       {
         src: 'assets/images/tetris.jpg',
-        alt: 'Tetris'
-      }
+        alt: 'Tetris',
+      },
     ];
+    this.cardRow = document.createElement('div');
+    this.cardRow.classList.add('game-area__row');
+    this.gameArea.appendChild(this.cardRow);
+
     for (let i = 0; i < 16; i++) {
-      this.cardRow = document.createElement('div');
-      this.cardRow.classList.add('game-area__row');
-      this.gameArea.appendChild(this.cardRow);
       this.card = document.createElement('div');
       this.cardInner = document.createElement('div');
       this.cardFront = document.createElement('div');
