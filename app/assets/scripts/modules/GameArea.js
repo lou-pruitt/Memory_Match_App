@@ -243,6 +243,10 @@ class GameArea {
         alt: 'Tetris',
       },
       {
+        src: 'assets/images/castlevania.jpeg',
+        alt: 'Castlevania',
+      },
+      {
         src: 'assets/images/contra.jpg',
         alt: 'Contra',
       },
@@ -274,12 +278,16 @@ class GameArea {
         src: 'assets/images/tetris.jpg',
         alt: 'Tetris',
       },
+      {
+        src: 'assets/images/castlevania.jpeg',
+        alt: 'Castlevania',
+      },
     ];
     this.cardRow = document.createElement('div');
     this.cardRow.classList.add('game-area__row');
     this.gameArea.appendChild(this.cardRow);
 
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 18; i++) {
       this.card = document.createElement('div');
       this.cardInner = document.createElement('div');
       this.cardFront = document.createElement('div');
