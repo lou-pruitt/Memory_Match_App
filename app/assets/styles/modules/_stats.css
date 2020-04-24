@@ -1,11 +1,11 @@
 .stats {
   display: flex;
-  color: white;
-  background-color: dimgray;
+  color: lightgoldenrodyellow;
+  justify-content: space-evenly;
+  background-color: black;
 
   &__title {
     text-align: center;
-    margin: auto;
     font-size: 1.2rem;
   }
   &__games-played {
