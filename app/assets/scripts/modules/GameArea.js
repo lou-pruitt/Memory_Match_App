@@ -16,7 +16,7 @@ class GameArea {
     this.matches = 0;
     this.attempts = 0;
     this.accuracy = 0;
-    this.totalPossibleMatches = 8;
+    this.totalPossibleMatches = 9;
     this.gamesPlayed = 0;
 
     this.playMatch = new Audio('assets/images/sounds/match.mp3');
