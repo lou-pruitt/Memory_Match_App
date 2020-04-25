@@ -27,13 +27,23 @@ class GameArea {
 
   events() {
     document.querySelectorAll('.game-area__card').forEach((card) => {
-      card.addEventListener('click', (e) => {
-        let clickedCard = e.target;
-        let cardImage =
-          clickedCard.parentNode.nextElementSibling.childNodes[0].src;
-        this.flipCard(clickedCard, cardImage);
-      });
+      this.showCards(card);
+      setTimeout(() => {
+        card.addEventListener('click', (e) => {
+          let clickedCard = e.target;
+          let cardImage =
+            clickedCard.parentNode.nextElementSibling.childNodes[0].src;
+          this.flipCard(clickedCard, cardImage);
+        });
+      }, this.delay * 5);
     });
+  }
+
+  showCards(card) {
+    card.childNodes[0].classList.add('game-area__card__inner--flip-card');
+    setTimeout(() => {
+      card.childNodes[0].classList.remove('game-area__card__inner--flip-card');
+    }, this.delay * 5);
   }
 
   flipCard(clickedCard, cardImage) {
