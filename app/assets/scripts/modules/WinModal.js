@@ -12,7 +12,6 @@ class WinModal {
   }
 
   injectHtml() {
-    debugger;
     if (this.gameNumber > 1) {
       return;
     }
