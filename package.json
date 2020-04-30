@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Chyort/Memory_Match_App#readme",
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "normalize.css": "^8.0.1"
   },
